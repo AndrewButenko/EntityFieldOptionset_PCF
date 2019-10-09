@@ -80,7 +80,7 @@ export class EntityFieldOptionset implements ComponentFramework.StandardControl<
 
         this.comboBoxControl.innerHTML = "";
 
-        let requestUrl =
+        const requestUrl = (<any>context).page.getClientUrl() +
             "/api/data/v9.0/EntityDefinitions(LogicalName='" + this.currentParentEntity + "')/Attributes?$select=LogicalName,DisplayName&$filter=AttributeType ne 'Virtual' and AttributeOf eq null";
 
         let request = new XMLHttpRequest();
