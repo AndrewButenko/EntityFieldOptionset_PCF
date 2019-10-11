@@ -81,7 +81,7 @@ export class EntityFieldOptionset implements ComponentFramework.StandardControl<
         this.comboBoxControl.innerHTML = "";
 
         const requestUrl = (<any>context).page.getClientUrl() +
-            "/api/data/v9.0/EntityDefinitions(LogicalName='" + this.currentParentEntity + "')/Attributes?$select=LogicalName,DisplayName&$filter=AttributeType ne 'Virtual' and AttributeOf eq null";
+            "/api/data/v9.0/EntityDefinitions(LogicalName='" + this.currentParentEntity + "')/Attributes?$select=LogicalName,DisplayName,AttributeType&$filter=AttributeOf eq null";
 
         let request = new XMLHttpRequest();
         request.open("GET", requestUrl, true);
@@ -100,7 +100,8 @@ export class EntityFieldOptionset implements ComponentFramework.StandardControl<
                     for (let i = 0; i < entityMetadata.value.length; i++) {
                         let fieldMetadata = entityMetadata.value[i];
 
-                        if (fieldMetadata.DisplayName == null ||
+                        if (fieldMetadata.AttributeType === "Virtual" ||
+                            fieldMetadata.DisplayName == null ||
                             fieldMetadata.DisplayName.UserLocalizedLabel == null ||
                             fieldMetadata.DisplayName.UserLocalizedLabel.Label == null) {
                             continue;
